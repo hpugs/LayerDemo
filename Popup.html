@@ -1,0 +1,367 @@
+<html>
+	<head>
+		<title>弹窗效果</title>
+	</head>
+	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<script src="layer/layer.js"></script>
+	<style>
+		.buttonValue{width:100%;display:inline-block;padding-top:20px;padding-bottom:20px;border-bottom:2px solid #666;}
+		.buttonValue li{float:left;min-width:100px;height:50px;margin-left:20px;padding:0 10px;line-height:50px;font-size:16px;text-align:center;border-radius:10px;background-color:#666;color:#fff;cursor:pointer;}
+		.buttonValue li:hover{background-color:#f54372;}
+		
+		//自定义样式一
+		body .demo-class1 .layui-layer-title{background:#c00; color:#fff; border: none;}
+		body .demo-class1 .layui-layer-btn{border-top:1px solid #E9E7E7;padding:10px;}
+		body .demo-class1 .layui-layer-btn a{background:#333;}
+		body .demo-class1 .layui-layer-btn .layui-layer-btn1{background:#999;}
+
+		//自定义样式二
+		body .demo-class2 .layui-layer-title{background:#c00; color:#0f0; border: none;}
+		body .demo-class2 .layui-layer-btn{border-top:1px solid #E9E7E7;padding:10px;}
+		body .demo-class2 .layui-layer-btn a{background:#333;}
+		body .demo-class2 .layui-layer-btn .layui-layer-btn1{background:#666;}
+		//加上body是为了保证优先级。你可以借助Chrome调试工具，定义更多样式控制层更多的区域
+	</style>
+	<body>
+		<ul class="buttonValue type">
+			<li rel="1">弹出框</li>
+			<li rel="2">弹出框(信息层)</li>
+			<li rel="3">弹出框(页面层)</li>
+			<li rel="4">弹出框(iframe层)</li>
+			<li rel="5">弹出框(加载层)</li>
+			<li rel="6" id="id">弹出框(tips层)</li>
+		</ul>
+		
+		<ul class="buttonValue skin">
+			<li rel="1">样式（自定义全局）</li>
+			<li rel="2">样式（自定义单个）</li>
+			<li rel="3">样式（layui-layer-lan）</li>
+			<li rel="4">样式（layui-layer-molv）</li>
+		</ul>
+		
+		<ul class="buttonValue area">
+			<li rel="1">宽高（默认）</li>
+			<li rel="2">宽高（自定义）</li>
+		</ul>
+		
+		<ul class="buttonValue offset">
+			<li rel="1">坐标（左上）</li>
+			<li rel="2">坐标（右上）</li>
+			<li rel="3">坐标（左下）</li>
+			<li rel="4">坐标（右下）</li>
+			<li rel="5">坐标（居中）</li>
+			<li rel="6">坐标（任意位置）</li>
+		</ul>
+		
+		<ul class="buttonValue iconMse">
+			<li rel="0">消息图标（提示信息）</li>
+			<li rel="1">消息图标（成功信息-对勾）</li>
+			<li rel="2">消息图标（错误信息-叉）</li>
+			<li rel="3">消息图标（确认信息）</li>
+			<li rel="4">消息图标（锁定信息）</li>
+			<li rel="5">消息图标（失败信息-笑脸）</li>
+			<li rel="6">消息图标（成功信息-沮丧）</li>
+		</ul>
+		
+		<ul class="buttonValue iconLoad">
+			<li rel="1">加载图标（0）</li>
+			<li rel="2">加载图标（1）</li>
+			<li rel="3">加载图标（2）</li>
+		</ul>
+		
+		<ul class="buttonValue closeBtn">
+			<li rel="0">关闭按钮（0）</li>
+			<li rel="1">关闭按钮（1）</li>
+			<li rel="2">关闭按钮（2）</li>
+		</ul>
+		
+		<ul class="buttonValue shade">
+			<li rel="1">遮罩层（默认）</li>
+			<li rel="2">遮罩层（0）</li>
+			<li rel="3">遮罩层（0.5）</li>
+			<li rel="4">遮罩层（0.5，#393D49)</li>
+		</ul>
+		
+		<ul class="buttonValue shadeClose">
+			<li rel="false">遮罩层关闭（默认）</li>
+			<li rel="true" value="遮罩层必须存在">遮罩层关闭（点击空白关闭）</li>
+		</ul>
+		
+		<ul class="buttonValue anim">
+			<li rel="0">动画（0）</li>
+			<li rel="1">动画（1）</li>
+			<li rel="2">动画（2）</li>
+			<li rel="3">动画（3）</li>
+			<li rel="4">动画（4）</li>
+			<li rel="5">动画（5）</li>
+			<li rel="6">动画（6）</li>
+		</ul>
+
+		<script>
+			$(".type li").click(function(){
+				var rel = $(this).attr("rel");
+				switch(rel){
+					case "1" :
+						layer.open({
+							type:0,
+							title: ['hello Layer', 'font-size:14px;'],
+							content: '传入任意的文本或html',//这里content是一个普通的String
+							skin: 'layui-layer-lan',//目前layer内置的skin有：layui-layer-lan、layui-layer-molv
+							area: ['500px', '300px'],//遮罩层区域大小
+							shade: 0.5,//遮罩层透明度
+							shadeClose: true,//是否点击遮罩关闭
+							time: 5000,//自动关闭时间
+							maxmin: true,//最大最小化
+							id: 'popup',//设置该值后，不管是什么类型的层，都只允许同时弹出一个。一般用于页面层和iframe层模式
+						});
+						break;
+					
+					case "2" :
+						layer.open({
+							type:0,
+							title: '信息层',
+							content: 'type = 0',
+						});
+						break;
+					case "3" :
+						layer.open({
+							type:1,
+							title: '页面层',
+							content: 'type = 1',
+						});
+						break;
+					case "4" :
+						layer.open({
+							type:2,
+							title: 'iframe层',
+							content: 'http://www.baidu.com' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://www.baidu.com', 'no'],
+						});
+						break;
+					case "5" :
+						layer.open({
+							type:3,
+							title: '加载层',
+							content: 'type = 3',
+						});
+						break;
+					case "6" :
+						layer.open({
+							type:4,
+							title: 'tips层',
+							content: ['tips层', '#id'] //数组第二项即吸附元素选择器或者DOM
+						});
+						break;
+				}
+			});
+			
+			$(".skin li").click(function(){
+				//单个使用
+				//layer.open({
+				//	skin: 'demo-class2'
+				//});
+				//全局使用。即所有弹出层都默认采用，但是单个配置skin的优先级更高
+				layer.config({
+				  skin: 'demo-class1'
+				})
+				var rel = $(this).attr("rel");
+				switch(rel){
+					case "1" :
+						layer.open({
+							type:0,
+							title: 'skin',
+							content: 'demo-class1'
+						});
+						break;
+					case "2" :
+						layer.open({
+							type:0,
+							title: 'skin',
+							content: 'demo-class2',
+							skin: 'demo-class2'
+						});
+						break;
+					case "3" :
+						layer.open({
+							type:0,
+							title: 'skin',
+							content: 'layui-layer-lan',
+							skin: 'layui-layer-lan'//目前layer内置的skin有：layui-layer-lan、layui-layer-molv
+						});
+						break;
+					case "4" :
+						layer.open({
+							type:0,
+							title: 'skin',
+							content: 'layui-layer-molv',
+							skin: 'layui-layer-molv'//目前layer内置的skin有：layui-layer-lan、layui-layer-molv
+						});
+						break;
+				}
+			});
+			
+			$(".area li").click(function(){
+				var rel = $(this).attr("rel");
+				switch(rel){
+					case "1" :
+						layer.open({
+							type:0,
+							title: 'area',
+							content: 'auto'
+						});
+						break;
+					case "2" :
+						layer.open({
+							type:0,
+							title: 'area',
+							content: '500px 300px',
+							area: ['500px', '300px']
+						});
+						break;
+				}
+			});
+			
+			$(".offset li").click(function(){
+				var rel = $(this).attr("rel");
+				switch(rel){
+					case "1" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '左上',
+							offset:'lt'
+						});
+						break;
+					case "2" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '右上',
+							offset:'rt'
+						});
+						break;
+					case "3" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '左下',
+							offset:'lb'
+						});
+						break;
+					case "4" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '右下',
+							offset:'rb'
+						});
+						break;
+					case "5" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '居中'
+						});
+						break;
+					case "6" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: 'auto',
+							offset:['100px','100px']
+						});
+						break;
+				}
+			});
+			
+			$(".iconMse li").click(function(){
+				var rel = $(this).attr("rel");
+				layer.open({
+					type: 0,
+					title: 'icon',
+					content: '信息框:'+rel,
+					icon: parseInt(rel)
+				});
+			});
+			
+			$(".iconLoad li").click(function(){
+				var rel = $(this).attr("rel");
+				layer.open({
+					type: 3,
+					icon: parseInt(rel)
+				});
+			});
+			
+			$(".closeBtn li").click(function(){
+				var rel = $(this).attr("rel");
+				layer.open({
+					type: 0,
+					title: 'closeBtn',
+					content: '关闭按钮',
+					closeBtn: parseInt(rel)
+				});
+			});
+			
+			$(".shade li").click(function(){
+				var rel = $(this).attr("rel");
+				switch(rel){
+					case "1" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '遮罩层auto'
+						});
+						break;
+					case "2" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '遮罩层0',
+							shade:0
+						});
+						break;
+					case "3" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '遮罩层0.5',
+							shade:0.5
+						});
+						break;
+					case "4" :
+						layer.open({
+							type:0,
+							title: 'offset',
+							content: '遮罩层[0.8, #393D49]',
+							shade:[0.8, '#393D49']
+						});
+						break;
+				}
+			});
+			
+			$(".shadeClose li").click(function(){
+				var rel = $(this).attr("rel");
+				var b = false;
+				if(rel == "true"){
+					b = true;
+				}
+				layer.open({
+					type: 0,
+					title: 'shadeClose',
+					content: '关闭按钮'+rel,
+					shadeClose: b,
+					shade:0.5
+				});
+			});
+			
+			$(".anim li").click(function(){
+				var rel = $(this).attr("rel");
+				layer.open({
+					type: 0,
+					title: 'anim',
+					content: '弹出框出现动画'+rel,
+					anim: parseInt(rel)
+				});
+			});
+		</script>
+	</body>
+</html>
